@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fast-food-orders-api-configmap
+  labels:
+    app: fast-food-orders-api-configmap
+data:
+  ASPNETCORE_ENVIRONMENT: "#{ENVIRONMENT}#"
+  ASPNETCORE_HTTP_PORTS: "8080"
+  PaymentsClientSettings__BaseUri: "#{PAYMENTS_API_URI}#"
+  AmazonSettings__Region: "#{AWS_REGION}#"
