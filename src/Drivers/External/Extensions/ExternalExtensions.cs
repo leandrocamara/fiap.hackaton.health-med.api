@@ -1,0 +1,112 @@
+﻿using Adapters.Gateways.Appointments;
+using Adapters.Gateways.Doctors;
+using Adapters.Gateways.Patients;
+using Amazon;
+using Amazon.Runtime;
+using Amazon.SQS;
+using Amazon.SQS.Model;
+using External.HostedServices.Consumers;
+using External.Persistence;
+using External.Persistence.Migrations;
+using External.Persistence.Repositories;
+using External.Settings;
+using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace External.Extensions;
+
+public static class ExternalExtensions
+{
+    public static IServiceCollection AddExternalDependencies(
+        this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<HealthMedContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("Default")));
+
+        services.AddScoped<IUnitOfWork, HealthMedContext>();
+        services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IDoctorRepository, DoctorRepository>();
+        services.AddScoped<IPatientRepository, PatientRepository>();
+
+        SetupAmazonSqs(services, configuration);
+
+        return services;
+    }
+
+    private static void SetupAmazonSqs(IServiceCollection services, IConfiguration configuration)
+    {
+        var settings = GetAmazonSettings(configuration);
+
+        services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient(
+            new SessionAWSCredentials(settings.AccessKey, settings.SecretKey, settings.SessionToken),
+            new AmazonSQSConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region) }));
+
+        services.AddHostedService<AppointmentScheduledConsumer>();
+    }
+
+    public static IHealthChecksBuilder AddSqsHealthCheck(
+        this IHealthChecksBuilder builder, IConfiguration configuration)
+    {
+        var settings = GetAmazonSettings(configuration);
+
+        return builder.AddSqs(options =>
+        {
+            options.Credentials = new SessionAWSCredentials(
+                settings.AccessKey,
+                settings.SecretKey,
+                settings.SessionToken);
+            options.RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region);
+        }, name: "sqs_health_check", tags: new[] { "sqs", "healthcheck" });
+    }
+
+    private static AmazonSettings GetAmazonSettings(IConfiguration configuration)
+    {
+        var settings = configuration.GetSection(nameof(AmazonSettings)).Get<AmazonSettings>();
+
+        if (settings is null)
+            throw new ArgumentException($"{nameof(AmazonSettings)} not found.");
+
+        return settings;
+    }
+
+    public static void CreateDatabase(this IApplicationBuilder _, IConfiguration configuration)
+    {
+        var serviceProvider = new ServiceCollection()
+            .AddFluentMigratorCore()
+            .ConfigureRunner(builder => builder
+                .AddPostgres()
+                .WithGlobalConnectionString(configuration.GetConnectionString("Default"))
+                .ScanIn(typeof(Initial).Assembly).For.Migrations().For.EmbeddedResources())
+            .AddLogging(lb => lb.AddFluentMigratorConsole())
+            .BuildServiceProvider(false);
+
+        using (serviceProvider.CreateScope())
+        {
+            serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
+        }
+    }
+
+    public static void CreateQueuesIfNotExist(this IApplicationBuilder app)
+    {
+        var sqsClient = app.ApplicationServices.GetRequiredService<IAmazonSQS>();
+        var queueNames = new[]
+        {
+            "appointment-scheduled",
+            "email-sent"
+        };
+
+        foreach (var queueName in queueNames)
+        {
+            var listQueuesRequest = new ListQueuesRequest { QueueNamePrefix = queueName };
+            var listQueuesResponse = sqsClient.ListQueuesAsync(listQueuesRequest).GetAwaiter().GetResult();
+
+            if (listQueuesResponse.QueueUrls.Any(url => url.EndsWith(queueName))) continue;
+
+            sqsClient.CreateQueueAsync(new CreateQueueRequest { QueueName = queueName }).GetAwaiter().GetResult();
+            Console.WriteLine($"Fila '{queueName}' criada com sucesso.");
+        }
+    }
+}
