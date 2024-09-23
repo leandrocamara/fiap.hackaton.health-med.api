@@ -1,3 +1,10 @@
-﻿namespace Application.Gateways;
+﻿using Entities.Doctors.DoctorAggregate;
 
-public interface IDoctorGateway;
+namespace Application.Gateways;
+
+public interface IDoctorGateway
+{
+    Task Save(Doctor doctor);
+    Task<Doctor?> GetByCpfOrCrm(string cpf, string crm);
+    Task<Doctor?> GetByEmail(string email);
+}

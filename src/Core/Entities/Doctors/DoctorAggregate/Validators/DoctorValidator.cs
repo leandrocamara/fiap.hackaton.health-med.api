@@ -6,6 +6,7 @@ internal sealed class DoctorValidator : IValidator<Doctor>
 {
     public bool IsValid(Doctor doctor, out string error)
     {
+        // TODO: Implement validations
         error = string.Empty;
         return true;
     }
