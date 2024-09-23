@@ -18,4 +18,10 @@ public abstract class BaseRouter : ControllerBase
             _ => throw new ArgumentOutOfRangeException()
         };
     }
+
+    protected static Guid GetAuthenticatedUserId()
+    {
+        // TODO: Get from Token
+        throw new NotImplementedException();
+    }
 }
