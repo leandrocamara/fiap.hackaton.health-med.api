@@ -1,4 +1,5 @@
 using Adapters.Controllers;
+using Application.UseCases.Appointments;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,7 +10,7 @@ namespace API.Routers;
 public class AppointmentRouter(IAppointmentController controller) : BaseRouter
 {
     [HttpPost]
-    [SwaggerResponse(StatusCodes.Status201Created, typeof(ScheduleAppointmentResponse))]
+    [SwaggerResponse(StatusCodes.Status201Created, "", typeof(ScheduleAppointmentResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status404NotFound)]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
@@ -23,7 +24,7 @@ public class AppointmentRouter(IAppointmentController controller) : BaseRouter
     }
 
     [HttpGet]
-    [SwaggerResponse(StatusCodes.Status200OK, typeof(GetScheduledAppointmentsResponse))]
+    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(GetScheduledAppointmentsResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]

@@ -12,7 +12,7 @@ public interface IDoctorController
     Task<Result> UpdateAvailability(Guid doctorId, UpdateAvailabilityRequest request);
 }
 
-public class DoctorController(
+public sealed class DoctorController(
     ICreateDoctorUseCase createDoctorUseCase,
     IGetDoctorsUseCase getDoctorsUseCase,
     ICreateAvailabilityUseCase createAvailabilityUseCase,

@@ -1,7 +1,26 @@
 ﻿using Adapters.Controllers.Common;
+using Application.UseCases.Auth;
 
 namespace Adapters.Controllers;
 
-public interface IAuthController;
+public interface IAuthController
+{
+    Task<Result> SignIn(SignInRequest request);
+}
 
-public class AuthController : BaseController, IAuthController;
+public sealed class AuthController(
+    ISignInUseCase signInUseCase) : BaseController, IAuthController
+{
+    public async Task<Result> SignIn(SignInRequest request)
+    {
+        try
+        {
+            var response = await Execute(() => signInUseCase.Execute(request));
+            return Result.Success(response);
+        }
+        catch (ControllerException e)
+        {
+            return e.Result;
+        }
+    }
+}

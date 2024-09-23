@@ -1,4 +1,5 @@
 ﻿using Adapters.Controllers;
+using Application.UseCases.Patients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,7 +12,7 @@ public class PatientRouter(IPatientController controller) : BaseRouter
 {
     [HttpPost]
     [AllowAnonymous]
-    [SwaggerResponse(StatusCodes.Status201Created, typeof(CreatePatientResponse))]
+    [SwaggerResponse(StatusCodes.Status201Created, "", typeof(CreatePatientResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreatePatient(CreatePatientRequest request)

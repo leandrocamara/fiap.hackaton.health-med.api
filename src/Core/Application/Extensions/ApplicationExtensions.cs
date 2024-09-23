@@ -1,4 +1,7 @@
-﻿using Application.UseCases.Doctors;
+﻿using Application.UseCases.Appointments;
+using Application.UseCases.Auth;
+using Application.UseCases.Doctors;
+using Application.UseCases.Patients;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions;
@@ -19,9 +22,20 @@ public static class ApplicationExtensions
 
         #region Patient
 
+        services.AddScoped<ICreatePatientUseCase, CreatePatientUseCase>();
+
         #endregion
 
         #region Appointment
+
+        services.AddScoped<IScheduleAppointmentUseCase, ScheduleAppointmentUseCase>();
+        services.AddScoped<IGetScheduledAppointmentsUseCase, GetScheduledAppointmentsUseCase>();
+
+        #endregion
+
+        #region Auth
+
+        services.AddScoped<ISignInUseCase, SignInUseCase>();
 
         #endregion
 
