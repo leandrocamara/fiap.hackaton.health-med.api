@@ -22,4 +22,10 @@ public class DoctorGateway : IDoctorGateway
         // TODO: Use Repository
         return Task.FromResult<Doctor>(null!)!;
     }
+
+    public Task<IEnumerable<Doctor>> GetAll()
+    {
+        // TODO: Use Repository
+        return Task.FromResult(Enumerable.Empty<Doctor>());
+    }
 }

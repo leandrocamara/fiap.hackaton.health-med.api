@@ -1,13 +1,26 @@
-﻿namespace Application.UseCases.Doctors;
+﻿using Application.Gateways;
+using Entities.SeedWork;
 
-public interface IGetDoctorsUseCase : IUseCase<GetDoctorsResponse>;
+namespace Application.UseCases.Doctors;
 
-public sealed class GetDoctorsUseCase : IGetDoctorsUseCase
+public interface IGetDoctorsUseCase : IUseCase<IEnumerable<GetDoctorResponse>>;
+
+public sealed class GetDoctorsUseCase(
+    IDoctorGateway doctorGateway) : IGetDoctorsUseCase
 {
-    public Task<GetDoctorsResponse> Execute()
+    public async Task<IEnumerable<GetDoctorResponse>> Execute()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var doctors = await doctorGateway.GetAll();
+
+            return doctors.Select(doctor => new GetDoctorResponse(doctor.Id, doctor.Name, doctor.Crm));
+        }
+        catch (DomainException e)
+        {
+            throw new ApplicationException($"Failed to recover the doctors. Error: {e.Message}", e);
+        }
     }
 }
 
-public record GetDoctorsResponse;
+public record GetDoctorResponse(Guid Id, string Name, string Crm);

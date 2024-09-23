@@ -22,7 +22,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet]
-    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(GetDoctorsResponse))]
+    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(IEnumerable<GetDoctorResponse>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
