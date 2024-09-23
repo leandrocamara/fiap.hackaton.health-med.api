@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="UseCases\Appointments\" />
       <Folder Include="UseCases\Auth\" />
-      <Folder Include="UseCases\Doctors\" />
       <Folder Include="UseCases\Patients\" />
     </ItemGroup>
 

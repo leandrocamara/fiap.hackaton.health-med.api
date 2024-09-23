@@ -1,4 +1,5 @@
 ﻿using Adapters.Controllers;
+using Application.UseCases.Doctors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,7 +12,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
 {
     [HttpPost]
     [AllowAnonymous]
-    [SwaggerResponse(StatusCodes.Status201Created, typeof(CreateDoctorResponse))]
+    [SwaggerResponse(StatusCodes.Status201Created, "", typeof(CreateDoctorResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateDoctor(CreateDoctorRequest request)
@@ -21,7 +22,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet]
-    [SwaggerResponse(StatusCodes.Status200OK, typeof(GetDoctorsResponse))]
+    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(GetDoctorsResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -32,7 +33,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpPost("availability")]
-    [SwaggerResponse(StatusCodes.Status201Created, typeof(CreateAvailabilityResponse))]
+    [SwaggerResponse(StatusCodes.Status201Created, "", typeof(CreateAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
@@ -45,7 +46,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet("availability")]
-    [SwaggerResponse(StatusCodes.Status200OK, typeof(GetAvailabilityResponse))]
+    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(GetAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -57,7 +58,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpPut("availability")]
-    [SwaggerResponse(StatusCodes.Status200OK, typeof(UpdateAvailabilityRequest))]
+    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(UpdateAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
