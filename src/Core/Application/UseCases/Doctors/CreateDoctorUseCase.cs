@@ -21,7 +21,7 @@ public sealed class CreateDoctorUseCase(
 
             await doctorGateway.Save(doctor);
 
-            return new CreateDoctorResponse(doctor.Id, doctor.Name, doctor.Cpf, doctor.Crm, doctor.Email);
+            return new CreateDoctorResponse(doctor.Id, doctor.Name, doctor.Cpf, doctor.Crm, doctor.Email, doctor.CreatedAt);
         }
         catch (Exception e)
         {
@@ -32,4 +32,4 @@ public sealed class CreateDoctorUseCase(
 
 public record CreateDoctorRequest(string Name, string Cpf, string Crm, string Email, string Password);
 
-public record CreateDoctorResponse(Guid Id, string Name, string Cpf, string Crm, string Email);
+public record CreateDoctorResponse(Guid Id, string Name, string Cpf, string Crm, string Email, DateTime CreatedAt);

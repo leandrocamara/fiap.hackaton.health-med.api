@@ -11,6 +11,7 @@ public sealed class Doctor : Entity, IAggregatedRoot
     public string Crm { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
+    public DateTime CreatedAt { get; private set; }
 
     public IReadOnlyCollection<Availability> Availabilities => _availabilities.AsReadOnly();
     private readonly IList<Availability> _availabilities;
@@ -23,6 +24,7 @@ public sealed class Doctor : Entity, IAggregatedRoot
         Crm = crm;
         Email = email;
         Password = password.ToMd5();
+        CreatedAt = DateTime.UtcNow;
 
         _availabilities = new List<Availability>();
 

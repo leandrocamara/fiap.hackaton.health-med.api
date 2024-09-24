@@ -1,3 +1,10 @@
-﻿namespace Application.Gateways;
+﻿using Entities.Patients.PatientAggregate;
 
-public interface IPatientGateway;
+namespace Application.Gateways;
+
+public interface IPatientGateway
+{
+    Task Save(Patient patient);
+    Task<Patient?> GetByCpf(string cpf);
+    Task<Patient?> GetByEmail(string email);
+}
