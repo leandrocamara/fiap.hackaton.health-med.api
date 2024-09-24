@@ -1,3 +1,10 @@
-﻿namespace Application.Gateways;
+﻿using Entities.Appointments.AppointmentAggregate;
 
-public interface IAppointmentGateway;
+namespace Application.Gateways;
+
+public interface IAppointmentGateway
+{
+    Task<bool> TryLockDoctorAvailability(Appointment appointment);
+    Task Save(Appointment appointment);
+    Task<IEnumerable<Appointment>> GetByDoctorId(Guid doctorId);
+}

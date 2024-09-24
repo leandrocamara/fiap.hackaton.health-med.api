@@ -18,8 +18,8 @@ public class AppointmentRouter(IAppointmentController controller) : BaseRouter
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ScheduleAppointment(ScheduleAppointmentRequest request)
     {
-        var patientId = GetAuthenticatedUserId();
-        var result = await controller.ScheduleAppointment(patientId, request);
+        request.SetPatientId(GetAuthenticatedUserId());
+        var result = await controller.ScheduleAppointment(request);
         return HttpResponse(result);
     }
 
