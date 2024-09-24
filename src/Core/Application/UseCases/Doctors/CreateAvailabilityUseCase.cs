@@ -1,5 +1,4 @@
 ﻿using Application.Gateways;
-using Application.UseCases.Doctors.Validators;
 using Entities.Doctors.DoctorAggregate;
 
 namespace Application.UseCases.Doctors;
@@ -9,14 +8,10 @@ public interface ICreateAvailabilityUseCase : IUseCase<CreateAvailabilityRequest
 public sealed class CreateAvailabilityUseCase(
     IDoctorGateway doctorGateway) : ICreateAvailabilityUseCase
 {
-    private readonly CreateAvailabilityValidator _validator = new(doctorGateway);
-
     public async Task<CreateAvailabilityResponse> Execute(CreateAvailabilityRequest request)
     {
         try
         {
-            await _validator.Validate(request);
-
             var doctor = await doctorGateway.GetById(request.DoctorId);
 
             if (doctor is null)

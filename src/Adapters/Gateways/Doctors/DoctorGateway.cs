@@ -40,4 +40,16 @@ public class DoctorGateway : IDoctorGateway
         // TODO: Use Repository
         return Task.CompletedTask;
     }
+
+    public Task<Availability?> GetAvailabilityById(Guid availabilityId)
+    {
+        // TODO: Use Repository
+        return Task.FromResult<Availability>(null!)!;
+    }
+
+    public Task UpdateAvailability(Availability availability)
+    {
+        // TODO: Use Repository
+        return Task.CompletedTask;
+    }
 }

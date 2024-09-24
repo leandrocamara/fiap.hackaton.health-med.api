@@ -10,4 +10,6 @@ public interface IDoctorGateway
     Task<IEnumerable<Doctor>> GetAll();
     Task<Doctor?> GetById(Guid doctorId);
     Task Update(Doctor doctor);
+    Task<Availability?> GetAvailabilityById(Guid availabilityId);
+    Task UpdateAvailability(Availability availability);
 }

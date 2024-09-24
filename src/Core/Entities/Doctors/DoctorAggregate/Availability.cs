@@ -15,6 +15,8 @@ public class Availability : Entity
         DateTime = dateTime;
     }
 
+    public void UpdateDateTime(DateTime dateTime) => DateTime = dateTime;
+
     // Required for EF
     private Availability()
     {

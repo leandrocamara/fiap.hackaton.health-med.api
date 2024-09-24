@@ -22,7 +22,7 @@ public sealed class GetAvailabilityUseCase(
         }
         catch (DomainException e)
         {
-            throw new ApplicationException($"Failed to recover the doctors. Error: {e.Message}", e);
+            throw new ApplicationException($"Failed to recover the doctor availability. Error: {e.Message}", e);
         }
     }
 }
