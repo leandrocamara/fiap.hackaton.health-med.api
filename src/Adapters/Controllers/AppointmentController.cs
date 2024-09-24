@@ -5,7 +5,7 @@ namespace Adapters.Controllers;
 
 public interface IAppointmentController
 {
-    Task<Result> ScheduleAppointment(Guid patientId, ScheduleAppointmentRequest request);
+    Task<Result> ScheduleAppointment(ScheduleAppointmentRequest request);
     Task<Result> GetScheduledAppointments(Guid doctorId);
 }
 
@@ -13,7 +13,7 @@ public sealed class AppointmentController(
     IScheduleAppointmentUseCase scheduleAppointmentUseCase,
     IGetScheduledAppointmentsUseCase getScheduledAppointmentsUseCase) : BaseController, IAppointmentController
 {
-    public async Task<Result> ScheduleAppointment(Guid patientId, ScheduleAppointmentRequest request)
+    public async Task<Result> ScheduleAppointment(ScheduleAppointmentRequest request)
     {
         try
         {

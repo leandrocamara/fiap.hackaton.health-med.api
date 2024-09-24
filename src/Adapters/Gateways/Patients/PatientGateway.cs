@@ -22,4 +22,10 @@ public class PatientGateway : IPatientGateway
         // TODO: Use Repository
         return Task.FromResult<Patient>(null!)!;
     }
+
+    public Task<Patient?> GetById(Guid patientId)
+    {
+        // TODO: Use Repository
+        return Task.FromResult<Patient>(null!)!;
+    }
 }

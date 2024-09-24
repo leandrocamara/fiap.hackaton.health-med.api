@@ -1,3 +1,8 @@
-﻿namespace Application.Gateways;
+﻿using Entities.Appointments.AppointmentAggregate;
 
-public interface IAppointmentGateway;
+namespace Application.Gateways;
+
+public interface IAppointmentGateway
+{
+    Task Save(Appointment appointment);
+}
