@@ -1,13 +1,32 @@
-﻿namespace Application.UseCases.Doctors;
+﻿using Application.Gateways;
+using Entities.SeedWork;
 
-public interface IGetAvailabilityUseCase : IUseCase<GetAvailabilityResponse>;
+namespace Application.UseCases.Doctors;
 
-public sealed class GetAvailabilityUseCase : IGetAvailabilityUseCase
+public interface IGetAvailabilityUseCase : IUseCase<Guid, GetAvailabilityResponse>;
+
+public sealed class GetAvailabilityUseCase(
+    IDoctorGateway doctorGateway) : IGetAvailabilityUseCase
 {
-    public Task<GetAvailabilityResponse> Execute()
+    public async Task<GetAvailabilityResponse> Execute(Guid doctorId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var doctor = await doctorGateway.GetById(doctorId);
+
+            if (doctor is null)
+                throw new ApplicationException("Doctor not found.");
+
+            return new GetAvailabilityResponse(doctor.Availabilities
+                .Select(availability => new AvailabilityResponse(availability.Id, availability.DateTime)));
+        }
+        catch (DomainException e)
+        {
+            throw new ApplicationException($"Failed to recover the doctors. Error: {e.Message}", e);
+        }
     }
 }
 
-public record GetAvailabilityResponse;
+public record GetAvailabilityResponse(IEnumerable<AvailabilityResponse> Availabilities);
+
+public record AvailabilityResponse(Guid Id, DateTime DateTime);

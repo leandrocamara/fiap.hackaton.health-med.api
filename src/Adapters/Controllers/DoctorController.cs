@@ -62,7 +62,7 @@ public sealed class DoctorController(
     {
         try
         {
-            var response = await Execute(getAvailabilityUseCase.Execute);
+            var response = await Execute(() => getAvailabilityUseCase.Execute(doctorId));
             return Result.Success(response);
         }
         catch (ControllerException e)
