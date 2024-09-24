@@ -28,4 +28,16 @@ public class DoctorGateway : IDoctorGateway
         // TODO: Use Repository
         return Task.FromResult(Enumerable.Empty<Doctor>());
     }
+
+    public Task<Doctor?> GetById(Guid doctorId)
+    {
+        // TODO: Use Repository
+        return Task.FromResult<Doctor>(null!)!;
+    }
+
+    public Task Update(Doctor doctor)
+    {
+        // TODO: Use Repository
+        return Task.CompletedTask;
+    }
 }

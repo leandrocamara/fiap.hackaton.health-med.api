@@ -8,4 +8,6 @@ public interface IDoctorGateway
     Task<Doctor?> GetByCpfOrCrm(string cpf, string crm);
     Task<Doctor?> GetByEmail(string email);
     Task<IEnumerable<Doctor>> GetAll();
+    Task<Doctor?> GetById(Guid doctorId);
+    Task Update(Doctor doctor);
 }

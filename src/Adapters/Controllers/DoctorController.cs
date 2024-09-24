@@ -7,7 +7,7 @@ public interface IDoctorController
 {
     Task<Result> CreateDoctor(CreateDoctorRequest request);
     Task<Result> GetDoctors();
-    Task<Result> CreateAvailability(Guid doctorId, CreateAvailabilityRequest request);
+    Task<Result> CreateAvailability(CreateAvailabilityRequest request);
     Task<Result> GetAvailability(Guid doctorId);
     Task<Result> UpdateAvailability(Guid doctorId, UpdateAvailabilityRequest request);
 }
@@ -45,7 +45,7 @@ public sealed class DoctorController(
         }
     }
 
-    public async Task<Result> CreateAvailability(Guid doctorId, CreateAvailabilityRequest request)
+    public async Task<Result> CreateAvailability(CreateAvailabilityRequest request)
     {
         try
         {

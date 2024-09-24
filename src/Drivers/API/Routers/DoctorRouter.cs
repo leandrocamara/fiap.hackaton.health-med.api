@@ -40,8 +40,8 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateAvailability(CreateAvailabilityRequest request)
     {
-        var doctorId = GetAuthenticatedUserId();
-        var result = await controller.CreateAvailability(doctorId, request);
+        request.SetDoctorId(GetAuthenticatedUserId());
+        var result = await controller.CreateAvailability(request);
         return HttpResponse(result);
     }
 

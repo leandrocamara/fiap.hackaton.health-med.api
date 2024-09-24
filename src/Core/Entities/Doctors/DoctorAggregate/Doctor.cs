@@ -12,6 +12,9 @@ public sealed class Doctor : Entity, IAggregatedRoot
     public string Email { get; private set; }
     public string Password { get; private set; }
 
+    public IReadOnlyCollection<Availability> Availabilities => _availabilities.AsReadOnly();
+    private readonly IList<Availability> _availabilities;
+
     public Doctor(string name, string cpf, string crm, string email, string password)
     {
         Id = Guid.NewGuid();
@@ -21,8 +24,15 @@ public sealed class Doctor : Entity, IAggregatedRoot
         Email = email;
         Password = password.ToMd5();
 
+        _availabilities = new List<Availability>();
+
         if (Validator.IsValid(this, out var error) is false)
             throw new DomainException(error);
+    }
+
+    public void AddAvailability(Availability availability)
+    {
+        _availabilities.Add(availability);
     }
 
     private static readonly IValidator<Doctor> Validator = new DoctorValidator();
