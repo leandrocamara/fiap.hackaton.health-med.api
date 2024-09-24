@@ -1,6 +1,8 @@
 ﻿using Application.Gateways;
 using Application.UseCases.Appointments.Validators;
 using Entities.Appointments.AppointmentAggregate;
+using Entities.Doctors.DoctorAggregate;
+using Entities.Patients.PatientAggregate;
 
 namespace Application.UseCases.Appointments;
 
@@ -19,19 +21,13 @@ public sealed class ScheduleAppointmentUseCase(
         {
             await _validator.Validate(request);
 
-            // TODO: Is the doctor's schedule available? (scheduling competition)
-
-            var patient = await patientGateway.GetById(request.GetPatientId());
-
-            if (patient is null)
-                throw new ApplicationException("Patient not found.");
-
-            var availability = await doctorGateway.GetAvailabilityById(request.AvailabilityId);
-
-            if (availability is null)
-                throw new ApplicationException("Doctor availability not found.");
-
+            var patient = await GetPatient(request.GetPatientId());
+            var availability = await GetAvailability(request.AvailabilityId);
             var appointment = new Appointment(patient, availability);
+
+            if (await appointmentGateway.TryLockDoctorAvailability(appointment) is false)
+                throw new ApplicationException("The doctor's availability is already lock.");
+
             await appointmentGateway.Save(appointment);
 
             return new ScheduleAppointmentResponse(
@@ -43,6 +39,26 @@ public sealed class ScheduleAppointmentUseCase(
         {
             throw new ApplicationException($"Failed to register appointment schedule. Error: {e.Message}", e);
         }
+    }
+
+    private async Task<Patient> GetPatient(Guid patientId)
+    {
+        var patient = await patientGateway.GetById(patientId);
+
+        if (patient is null)
+            throw new ApplicationException("Patient not found.");
+
+        return patient;
+    }
+
+    private async Task<Availability> GetAvailability(Guid availabilityId)
+    {
+        var availability = await doctorGateway.GetAvailabilityById(availabilityId);
+
+        if (availability is null)
+            throw new ApplicationException("Doctor availability not found.");
+
+        return availability;
     }
 }
 
