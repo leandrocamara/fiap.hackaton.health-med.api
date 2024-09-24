@@ -16,4 +16,10 @@ public class AppointmentGateway : IAppointmentGateway
         // TODO: Use Repository
         return Task.CompletedTask;
     }
+
+    public Task<IEnumerable<Appointment>> GetByDoctorId(Guid doctorId)
+    {
+        // TODO: Use Repository
+        return Task.FromResult(Enumerable.Empty<Appointment>());
+    }
 }
