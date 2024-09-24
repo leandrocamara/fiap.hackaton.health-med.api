@@ -7,9 +7,9 @@ public interface IDoctorController
 {
     Task<Result> CreateDoctor(CreateDoctorRequest request);
     Task<Result> GetDoctors();
-    Task<Result> CreateAvailability(Guid doctorId, CreateAvailabilityRequest request);
+    Task<Result> CreateAvailability(CreateAvailabilityRequest request);
     Task<Result> GetAvailability(Guid doctorId);
-    Task<Result> UpdateAvailability(Guid doctorId, UpdateAvailabilityRequest request);
+    Task<Result> UpdateAvailability(UpdateAvailabilityRequest request);
 }
 
 public sealed class DoctorController(
@@ -45,7 +45,7 @@ public sealed class DoctorController(
         }
     }
 
-    public async Task<Result> CreateAvailability(Guid doctorId, CreateAvailabilityRequest request)
+    public async Task<Result> CreateAvailability(CreateAvailabilityRequest request)
     {
         try
         {
@@ -62,7 +62,7 @@ public sealed class DoctorController(
     {
         try
         {
-            var response = await Execute(getAvailabilityUseCase.Execute);
+            var response = await Execute(() => getAvailabilityUseCase.Execute(doctorId));
             return Result.Success(response);
         }
         catch (ControllerException e)
@@ -71,7 +71,7 @@ public sealed class DoctorController(
         }
     }
 
-    public async Task<Result> UpdateAvailability(Guid doctorId, UpdateAvailabilityRequest request)
+    public async Task<Result> UpdateAvailability(UpdateAvailabilityRequest request)
     {
         try
         {
