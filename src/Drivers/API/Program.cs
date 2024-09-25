@@ -2,6 +2,7 @@ using Adapters.Extensions;
 using API.Filters;
 using API.HealthChecks;
 using Application.Extensions;
+using External.Clients.Auth;
 using External.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<TransactionalContextFilter>();
 });
 
+builder.Services.AddAuth(configuration);
 builder.Services.AddExternalDependencies(configuration);
 builder.Services.AddAdaptersDependencies();
 builder.Services.AddApplicationDependencies();
@@ -37,8 +39,11 @@ if (app.Environment.IsDevelopment())
     app.CreateQueuesIfNotExist();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseCustomHealthChecks();
 app.UseHttpsRedirection();
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 app.Run();

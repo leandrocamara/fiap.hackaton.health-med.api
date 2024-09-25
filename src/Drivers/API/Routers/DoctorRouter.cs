@@ -1,4 +1,5 @@
 ﻿using Adapters.Controllers;
+using Application.UseCases.Auth;
 using Application.UseCases.Doctors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet]
+    [Authorize(Roles = Role.Patient)]
     [SwaggerResponse(StatusCodes.Status200OK, "", typeof(IEnumerable<GetDoctorResponse>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
@@ -33,6 +35,7 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpPost("availability")]
+    [Authorize(Roles = Role.Doctor)]
     [SwaggerResponse(StatusCodes.Status201Created, "", typeof(CreateAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
@@ -46,18 +49,20 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet("availability")]
+    [Authorize(Roles = $"{Role.Patient},{Role.Doctor}")]
     [SwaggerResponse(StatusCodes.Status200OK, "", typeof(GetAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAvailability()
+    public async Task<IActionResult> GetAvailability([FromQuery] Guid? doctorId)
     {
-        var doctorId = GetAuthenticatedUserId();
-        var result = await controller.GetAvailability(doctorId);
+        doctorId ??= GetAuthenticatedUserId();
+        var result = await controller.GetAvailability(doctorId.Value);
         return HttpResponse(result);
     }
 
     [HttpPut("availability")]
+    [Authorize(Roles = Role.Doctor)]
     [SwaggerResponse(StatusCodes.Status200OK, "", typeof(UpdateAvailabilityResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]

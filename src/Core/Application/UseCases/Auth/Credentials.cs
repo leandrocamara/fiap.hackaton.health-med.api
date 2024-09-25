@@ -1,9 +1,9 @@
 ﻿namespace Application.UseCases.Auth;
 
-public record Credentials(Guid UserId, Profile Profile);
+public record Credentials(Guid UserId, string Role);
 
-public enum Profile
+public static class Role
 {
-    Patient,
-    Doctor
+    public const string Patient = "Patient";
+    public const string Doctor = "Doctor";
 }
