@@ -1,4 +1,5 @@
-﻿using Adapters.Controllers.Common;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Adapters.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Routers;
@@ -19,9 +20,9 @@ public abstract class BaseRouter : ControllerBase
         };
     }
 
-    protected static Guid GetAuthenticatedUserId()
+    protected Guid GetAuthenticatedUserId()
     {
-        // TODO: Get from Token
-        throw new NotImplementedException();
+        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        return userId is null ? Guid.Empty : Guid.Parse(userId);
     }
 }
