@@ -1,4 +1,5 @@
 ﻿using Adapters.Gateways.Appointments;
+using Adapters.Gateways.Auth;
 using Adapters.Gateways.Doctors;
 using Adapters.Gateways.Patients;
 using Amazon;
@@ -28,6 +29,7 @@ public static class ExternalExtensions
 
         services.AddScoped<IUnitOfWork, HealthMedContext>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IPatientRepository, PatientRepository>();
 

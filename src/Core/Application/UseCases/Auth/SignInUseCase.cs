@@ -11,7 +11,7 @@ public sealed class SignInUseCase(
     {
         try
         {
-            var credentials = await authGateway.GetCredentials(request.Cpf, request.Password);
+            var credentials = await authGateway.GetCredentials(request.Email, request.Password);
 
             if (credentials is null)
                 throw new ApplicationException("Invalid username or password.");
@@ -27,6 +27,6 @@ public sealed class SignInUseCase(
     }
 }
 
-public record SignInRequest(string Cpf, string Password);
+public record SignInRequest(string Email, string Password);
 
 public record SignInResponse(string Token);

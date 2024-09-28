@@ -22,9 +22,9 @@
         "AuthSettings__Issuer": "any-issuer",
         "AuthSettings__Audience": "any-audience",
         "AmazonSettings__Region": "us-east-1",
-        "AmazonSettings__AccessKey": "ASIAROVJHPUOBXHULC4A",
-        "AmazonSettings__SecretKey": "SF5nLBg73EbKB3QxR462SYSBuyf/yy3T1JIsXTte",
-        "AmazonSettings__SessionToken": "IQoJb3JpZ2luX2VjEOr//////////wEaCXVzLXdlc3QtMiJHMEUCIQCKyOuKmpfIitdGI1XfnmffYA8+JseDYbNrTy1xqj1e4QIgLYM4xV918BnCnO6769S6hyGwBETLHeF8il8YxJx2wq8qsAIIMxAAGgwxMDAyMTI4OTkxMDAiDMGRP/ikVwbRCd0JJCqNAm+N+E5yeVGGmCujBh6pPTOF9n75zutvpTlzeA6DLmnaJuhGXsEMism8CBBmhylQob84xAfPuhDCFO7WLRZS0C59EKw5DK7u+XdqM45Y9+9A2BCeJK6vaYh+tuUxgImn0XLi9RYmc6T+HATOWcjDM7gT8jTuDpFNDmSmlblIVGOtOSnXXmZCW9MPhb5ukBYVWbbzjBTgantvLRIBtlnY8KSs/cjjRZCJVuRQUpbKI1O1U4PkhAbHBU2Yb3VkcfHJFXg7BofwzUZKH46QO8NG7PPmyZ+DCuePaHWSt4MUVn83JV/d7Jk1WqVJQTTB2wC1CRyQsE876c813yBpizeoLeU9Xq9ftgOgSEzIjhs7MKLZ27cGOp0BeFgjby90aAIvCCGg+MIS9IWvU+ZNK0wjCgqyTThKK8SiPzUI6+NDo3pFpFSrVqmvA5PmPRcKnKr6P1KbL56I5YH6rs86m6kzy7UME/vBBGk2q0DtYoBavcF3ouxSFI4zdHpLeFLhw361KjZwNrlJfSQTBw9c3tPw4RQEY8dR7nfWYje9KgrecXxGkXRD6TRZJPxcXl03jkIg/WP2sQ=="
+        "AmazonSettings__AccessKey": "",
+        "AmazonSettings__SecretKey": "",
+        "AmazonSettings__SessionToken": ""
       }
     },
     "https": {
@@ -39,10 +39,9 @@
         "AuthSettings__SecretKey": "any-secret-key",
         "AuthSettings__Issuer": "any-issuer",
         "AuthSettings__Audience": "any-audience",
-        "AmazonSettings__Region": "us-east-1",
-        "AmazonSettings__AccessKey": "ASIAROVJHPUOBXHULC4A",
-        "AmazonSettings__SecretKey": "SF5nLBg73EbKB3QxR462SYSBuyf/yy3T1JIsXTte",
-        "AmazonSettings__SessionToken": "IQoJb3JpZ2luX2VjEOr//////////wEaCXVzLXdlc3QtMiJHMEUCIQCKyOuKmpfIitdGI1XfnmffYA8+JseDYbNrTy1xqj1e4QIgLYM4xV918BnCnO6769S6hyGwBETLHeF8il8YxJx2wq8qsAIIMxAAGgwxMDAyMTI4OTkxMDAiDMGRP/ikVwbRCd0JJCqNAm+N+E5yeVGGmCujBh6pPTOF9n75zutvpTlzeA6DLmnaJuhGXsEMism8CBBmhylQob84xAfPuhDCFO7WLRZS0C59EKw5DK7u+XdqM45Y9+9A2BCeJK6vaYh+tuUxgImn0XLi9RYmc6T+HATOWcjDM7gT8jTuDpFNDmSmlblIVGOtOSnXXmZCW9MPhb5ukBYVWbbzjBTgantvLRIBtlnY8KSs/cjjRZCJVuRQUpbKI1O1U4PkhAbHBU2Yb3VkcfHJFXg7BofwzUZKH46QO8NG7PPmyZ+DCuePaHWSt4MUVn83JV/d7Jk1WqVJQTTB2wC1CRyQsE876c813yBpizeoLeU9Xq9ftgOgSEzIjhs7MKLZ27cGOp0BeFgjby90aAIvCCGg+MIS9IWvU+ZNK0wjCgqyTThKK8SiPzUI6+NDo3pFpFSrVqmvA5PmPRcKnKr6P1KbL56I5YH6rs86m6kzy7UME/vBBGk2q0DtYoBavcF3ouxSFI4zdHpLeFLhw361KjZwNrlJfSQTBw9c3tPw4RQEY8dR7nfWYje9KgrecXxGkXRD6TRZJPxcXl03jkIg/WP2sQ=="
+        "AmazonSettings__AccessKey": "",
+        "AmazonSettings__SecretKey": "",
+        "AmazonSettings__SessionToken": ""
       }
     },
     "IIS Express": {

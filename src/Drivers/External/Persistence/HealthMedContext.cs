@@ -1,4 +1,7 @@
 ﻿using System.Data;
+using Entities.Doctors.DoctorAggregate;
+using Entities.Patients.PatientAggregate;
+using Entities.Users.UserAggregate;
 using External.Persistence.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -16,11 +19,16 @@ public sealed class HealthMedContext(DbContextOptions<HealthMedContext> options)
 {
     private IDbContextTransaction? _currentTransaction;
 
+    public DbSet<User> Users { get; set; }
+    public DbSet<Doctor> Doctors { get; set; }
+    public DbSet<Patient> Patients { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.UsePropertyAccessMode(PropertyAccessMode.Field);
+        modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new DoctorEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 
