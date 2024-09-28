@@ -20,9 +20,7 @@ public sealed class HealthMedContext(DbContextOptions<HealthMedContext> options)
     {
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.UsePropertyAccessMode(PropertyAccessMode.Field);
-
         modelBuilder.ApplyConfiguration(new DoctorEntityTypeConfiguration());
-
         base.OnModelCreating(modelBuilder);
     }
 

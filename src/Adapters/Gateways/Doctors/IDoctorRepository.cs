@@ -2,7 +2,4 @@
 
 namespace Adapters.Gateways.Doctors;
 
-public interface IDoctorRepository : IRepository<Doctor>
-{
-    Task<IEnumerable<Doctor>> GetAllAsync();
-};
+public interface IDoctorRepository : IRepository<Doctor>;

@@ -32,4 +32,8 @@
       <ProjectReference Include="..\..\Core\Entities\Entities.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\Config\" />
+    </ItemGroup>
+
 </Project>
