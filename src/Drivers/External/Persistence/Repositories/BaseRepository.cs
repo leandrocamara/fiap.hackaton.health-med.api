@@ -6,11 +6,13 @@ namespace External.Persistence.Repositories;
 
 public abstract class BaseRepository<T>(HealthMedContext context) : IRepository<T> where T : class, IAggregatedRoot
 {
+    protected readonly DbSet<T> _dbSet = context.Set<T>();
+
     public virtual void Add(T entity) => context.Add(entity);
 
     public virtual void Delete(T entity) => context.Remove(entity);
 
     public virtual void Update(T entity) => context.Entry(entity).State = EntityState.Modified;
 
-    public virtual T? GetById(Guid id) => context.Find<T>(id);
+    public virtual T? GetById(Guid id) => context.Find<T>(id);    
 }

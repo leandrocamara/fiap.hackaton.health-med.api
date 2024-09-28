@@ -23,7 +23,8 @@ public class DoctorRouter(IDoctorController controller) : BaseRouter
     }
 
     [HttpGet]
-    [Authorize(Roles = Role.Patient)]
+    [AllowAnonymous]
+    //[Authorize(Roles = Role.Patient)]
     [SwaggerResponse(StatusCodes.Status200OK, "", typeof(IEnumerable<GetDoctorResponse>))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized)]
     [SwaggerResponse(StatusCodes.Status403Forbidden)]

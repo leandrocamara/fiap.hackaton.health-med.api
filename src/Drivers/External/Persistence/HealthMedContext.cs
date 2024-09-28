@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using External.Persistence.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -19,6 +20,8 @@ public sealed class HealthMedContext(DbContextOptions<HealthMedContext> options)
     {
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        modelBuilder.ApplyConfiguration(new DoctorEntityTypeConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

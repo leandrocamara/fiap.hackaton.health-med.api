@@ -3,11 +3,11 @@ using Entities.Doctors.DoctorAggregate;
 
 namespace Adapters.Gateways.Doctors;
 
-public class DoctorGateway : IDoctorGateway
+public class DoctorGateway(IDoctorRepository doctorRepository) : IDoctorGateway
 {
     public Task Save(Doctor doctor)
     {
-        // TODO: Use Repository
+        doctorRepository.Add(doctor);
         return Task.CompletedTask;
     }
 
@@ -23,10 +23,9 @@ public class DoctorGateway : IDoctorGateway
         return Task.FromResult<Doctor>(null!)!;
     }
 
-    public Task<IEnumerable<Doctor>> GetAll()
+    public async Task<IEnumerable<Doctor>> GetAll()
     {
-        // TODO: Use Repository
-        return Task.FromResult(Enumerable.Empty<Doctor>());
+        return await doctorRepository.GetAllAsync();
     }
 
     public Task<Doctor?> GetById(Guid doctorId)
