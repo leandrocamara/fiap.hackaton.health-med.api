@@ -14,8 +14,8 @@ public sealed class CreatePatientValidator(IPatientGateway patientGateway)
     }
 
     private async Task<bool> IsPatientExists(string cpf) =>
-        await patientGateway.GetByCpf(cpf) is not null;
+        patientGateway.GetByCpf(cpf) is not null;
 
     private async Task<bool> IsEmailAlreadyUsed(string email) =>
-        await patientGateway.GetByEmail(email) is not null;
+        patientGateway.GetByEmail(email) is not null;
 }

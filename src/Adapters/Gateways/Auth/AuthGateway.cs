@@ -11,11 +11,11 @@ public class AuthGateway(
     {
         var user = userRepository.GetByEmail(email);
 
-        if (user?.Password == password.ToMd5())
-        {
-            var credentials = new Credentials(user.Id, nameof(user.Type));
-            return Task.FromResult<Credentials>(credentials);
-        }
+        // if (user?.Password == password.ToMd5())
+        // {
+        //     var credentials = new Credentials(user.Id, nameof(user.Type));
+        //     return Task.FromResult<Credentials>(credentials);
+        // }
             
         return Task.FromResult<Credentials>(null!);
     }

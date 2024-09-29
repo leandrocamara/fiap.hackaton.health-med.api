@@ -12,7 +12,7 @@ public sealed class GetAvailabilityUseCase(
     {
         try
         {
-            var doctor = await doctorGateway.GetById(doctorId);
+            var doctor = doctorGateway.GetById(doctorId);
 
             if (doctor is null)
                 throw new ApplicationException("Doctor not found.");

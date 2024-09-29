@@ -3,29 +3,22 @@ using Entities.Patients.PatientAggregate;
 
 namespace Adapters.Gateways.Patients;
 
-public class PatientGateway : IPatientGateway
+public class PatientGateway(
+    IPatientRepository patientRepository) : IPatientGateway
 {
-    public Task Save(Patient patient)
+    public void Save(Patient patient) => patientRepository.Add(patient);
+
+    public Patient? GetByCpf(string cpf)
     {
         // TODO: Use Repository
-        return Task.CompletedTask;
+        return null;
     }
 
-    public Task<Patient?> GetByCpf(string cpf)
+    public Patient? GetByEmail(string email)
     {
         // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
+        return null;
     }
 
-    public Task<Patient?> GetByEmail(string email)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
-    }
-
-    public Task<Patient?> GetById(Guid patientId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
-    }
+    public Patient? GetById(Guid patientId) => patientRepository.GetById(patientId);
 }

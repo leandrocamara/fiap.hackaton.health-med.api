@@ -43,7 +43,7 @@ public sealed class ScheduleAppointmentUseCase(
 
     private async Task<Patient> GetPatient(Guid patientId)
     {
-        var patient = await patientGateway.GetById(patientId);
+        var patient = patientGateway.GetById(patientId);
 
         if (patient is null)
             throw new ApplicationException("Patient not found.");

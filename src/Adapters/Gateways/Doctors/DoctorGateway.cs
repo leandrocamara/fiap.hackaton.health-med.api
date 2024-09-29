@@ -3,13 +3,10 @@ using Entities.Doctors.DoctorAggregate;
 
 namespace Adapters.Gateways.Doctors;
 
-public class DoctorGateway : IDoctorGateway
+public class DoctorGateway(
+    IDoctorRepository doctorRepository) : IDoctorGateway
 {
-    public Task Save(Doctor doctor)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Save(Doctor doctor) => doctorRepository.Add(doctor);
 
     public Task<Doctor?> GetByCpfOrCrm(string cpf, string crm)
     {
@@ -29,17 +26,9 @@ public class DoctorGateway : IDoctorGateway
         return Task.FromResult(Enumerable.Empty<Doctor>());
     }
 
-    public Task<Doctor?> GetById(Guid doctorId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Doctor>(null!)!;
-    }
+    public Doctor? GetById(Guid doctorId) => doctorRepository.GetById(doctorId);
 
-    public Task Update(Doctor doctor)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Update(Doctor doctor) => doctorRepository.Update(doctor);
 
     public Task<Availability?> GetAvailabilityById(Guid availabilityId)
     {

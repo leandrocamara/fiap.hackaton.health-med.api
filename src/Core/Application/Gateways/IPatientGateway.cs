@@ -4,8 +4,8 @@ namespace Application.Gateways;
 
 public interface IPatientGateway
 {
-    Task Save(Patient patient);
-    Task<Patient?> GetByCpf(string cpf);
-    Task<Patient?> GetByEmail(string email);
-    Task<Patient?> GetById(Guid patientId);
+    void Save(Patient patient);
+    Patient? GetByCpf(string cpf);
+    Patient? GetByEmail(string email);
+    Patient? GetById(Guid patientId);
 }

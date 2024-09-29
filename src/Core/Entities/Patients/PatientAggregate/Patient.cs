@@ -1,16 +1,19 @@
 ﻿using Entities.Patients.PatientAggregate.Validators;
 using Entities.SeedWork;
-using Entities.SeedWork.Extensions;
 using Entities.Users.UserAggregate;
 
 namespace Entities.Patients.PatientAggregate;
 
-public sealed class Patient : User, IAggregatedRoot
+public sealed class Patient : Entity, IAggregatedRoot
 {
-    public Patient(string name, string cpf, string email, string password) : base(name, cpf, email, password)
+    public User User { get; private set; }
+    public Guid UserId { get; private set; }
+
+    public Patient(User user)
     {
         Id = Guid.NewGuid();
-    
+        User = user;
+        UserId = user.Id;
 
         if (Validator.IsValid(this, out var error) is false)
             throw new DomainException(error);

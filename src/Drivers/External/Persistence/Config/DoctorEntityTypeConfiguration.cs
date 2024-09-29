@@ -1,9 +1,6 @@
-﻿using Application.UseCases.Auth;
-using Entities.Doctors.DoctorAggregate;
-using Entities.Users.UserAggregate;
+﻿using Entities.Doctors.DoctorAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace External.Persistence.Config;
 
@@ -11,12 +8,19 @@ public class DoctorEntityTypeConfiguration : IEntityTypeConfiguration<Doctor>
 {
     public void Configure(EntityTypeBuilder<Doctor> builder)
     {
-        builder.ToTable("doctors")
-        .HasBaseType<User>();
+        builder.ToTable("doctors");
 
-        builder.Property(d => d.Crm)
-           .IsRequired()
-           .HasMaxLength(20);
+        builder.HasKey(doctor => doctor.Id);
 
+        builder
+            .Property(d => d.Crm)
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder
+            .HasOne(doctor => doctor.User)
+            .WithOne()
+            .HasForeignKey<Doctor>(doctor => doctor.UserId)
+            .IsRequired();
     }
 }

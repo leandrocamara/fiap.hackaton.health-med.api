@@ -12,7 +12,7 @@ public sealed class CreateAvailabilityUseCase(
     {
         try
         {
-            var doctor = await doctorGateway.GetById(request.GetDoctorId());
+            var doctor = doctorGateway.GetById(request.GetDoctorId());
 
             if (doctor is null)
                 throw new ApplicationException("Doctor not found.");
@@ -20,7 +20,7 @@ public sealed class CreateAvailabilityUseCase(
             var availability = new Availability(doctor, request.AvailableDateTime);
             doctor.AddAvailability(availability);
 
-            await doctorGateway.Update(doctor);
+            doctorGateway.Update(doctor);
 
             return new CreateAvailabilityResponse(doctor.Id, availability.Id, availability.DateTime);
         }

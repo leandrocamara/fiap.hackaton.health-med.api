@@ -1,5 +1,4 @@
 ﻿using Entities.Patients.PatientAggregate;
-using Entities.Users.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +8,14 @@ public class PatientEntityTypeConfiguration : IEntityTypeConfiguration<Patient>
 {
     public void Configure(EntityTypeBuilder<Patient> builder)
     {
-        builder.ToTable("patients")
-            .HasBaseType<User>();
+        builder.ToTable("patients");
+
+        builder.HasKey(patient => patient.Id);
+
+        builder
+            .HasOne(patient => patient.User)
+            .WithOne()
+            .HasForeignKey<Patient>(patient => patient.UserId)
+            .IsRequired();
     }
 }

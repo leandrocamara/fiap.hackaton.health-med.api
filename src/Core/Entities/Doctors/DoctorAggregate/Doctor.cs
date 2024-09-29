@@ -1,21 +1,24 @@
 ﻿using Entities.Doctors.DoctorAggregate.Validators;
 using Entities.SeedWork;
-using Entities.SeedWork.Extensions;
 using Entities.Users.UserAggregate;
 
 namespace Entities.Doctors.DoctorAggregate;
 
-public sealed class Doctor : User, IAggregatedRoot
+public sealed class Doctor : Entity, IAggregatedRoot
 {
+    public User User { get; private set; }
+    public Guid UserId { get; private set; }
     public string Crm { get; private set; }
-    
+
     public IReadOnlyCollection<Availability> Availabilities => _availabilities.AsReadOnly();
     private readonly IList<Availability> _availabilities;
 
-    public Doctor(string name, string cpf, string crm, string email, string password) : base(name, cpf, email, password)
+    public Doctor(User user, string crm)
     {
-        Id = Guid.NewGuid();     
-        Crm = crm;      
+        Id = Guid.NewGuid();
+        User = user;
+        UserId = user.Id;
+        Crm = crm;
 
         _availabilities = new List<Availability>();
 

@@ -16,7 +16,7 @@ public class GetScheduledAppointmentsUseCase(
 
             return new GetScheduledAppointmentsResponse(appointments.Select(appointment =>
                 new ScheduledAppointmentResponse(
-                    appointment.Patient.Name,
+                    appointment.Patient.User.Name,
                     appointment.Availability.DateTime)));
         }
         catch (DomainException e)

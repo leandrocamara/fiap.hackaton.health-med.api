@@ -14,7 +14,7 @@ public sealed class GetDoctorsUseCase(
         {
             var doctors = await doctorGateway.GetAll();
 
-            return doctors.Select(doctor => new GetDoctorResponse(doctor.Id, doctor.Name, doctor.Crm));
+            return doctors.Select(doctor => new GetDoctorResponse(doctor.Id, doctor.User.Name, doctor.Crm));
         }
         catch (DomainException e)
         {
