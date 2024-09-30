@@ -14,8 +14,8 @@ public static class Extensions
             .AddHealthChecks()
             .AddCheck<DbHealthCheck>(
                 name: "db_health_check",
-                tags: new[] { "database", "healthcheck" })
-            .AddSqsHealthCheck(configuration);
+                tags: new[] { "database", "healthcheck" });
+            //.AddSqsHealthCheck(configuration);
 
         return services;
     }

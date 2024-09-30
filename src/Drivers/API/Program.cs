@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.CreateDatabase(configuration);
-    // app.CreateQueuesIfNotExist();
+    //app.CreateQueuesIfNotExist();
 }
 
 app.UseAuthentication();

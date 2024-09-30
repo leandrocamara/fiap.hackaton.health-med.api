@@ -40,13 +40,13 @@ public static class ExternalExtensions
 
     private static void SetupAmazonSqs(IServiceCollection services, IConfiguration configuration)
     {
-        var settings = GetAmazonSettings(configuration);
+        //var settings = GetAmazonSettings(configuration);
 
-        services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient(
-            new SessionAWSCredentials(settings.AccessKey, settings.SecretKey, settings.SessionToken),
-            new AmazonSQSConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region) }));
+        //services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient(
+        //    new SessionAWSCredentials(settings.AccessKey, settings.SecretKey, settings.SessionToken),
+        //    new AmazonSQSConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region) }));
 
-        services.AddHostedService<AppointmentScheduledConsumer>();
+        //services.AddHostedService<AppointmentScheduledConsumer>();
     }
 
     public static IHealthChecksBuilder AddSqsHealthCheck(

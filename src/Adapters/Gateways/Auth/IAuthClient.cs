@@ -2,5 +2,5 @@
 
 public interface IAuthClient
 {
-    Task<string> GenerateToken(string userId, string role);
+    Task<string> GenerateToken(string userId, List<string> roles);
 }

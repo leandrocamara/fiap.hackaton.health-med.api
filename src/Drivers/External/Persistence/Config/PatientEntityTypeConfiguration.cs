@@ -14,7 +14,7 @@ public class PatientEntityTypeConfiguration : IEntityTypeConfiguration<Patient>
 
         builder
             .HasOne(patient => patient.User)
-            .WithOne()
+            .WithOne(user => user.Patient)
             .HasForeignKey<Patient>(patient => patient.UserId)
             .IsRequired();
     }

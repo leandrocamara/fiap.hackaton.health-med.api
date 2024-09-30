@@ -1,6 +1,9 @@
-﻿using Entities.Users.UserAggregate;
+﻿using Entities.Doctors.DoctorAggregate;
+using Entities.Patients.PatientAggregate;
+using Entities.Users.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace External.Persistence.Config;
 
@@ -26,6 +29,10 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .Property(user => user.Email)
             .HasMaxLength(255)
             .IsRequired();
+
+        builder
+            .HasIndex(user => user.Email)
+            .IsUnique(); 
 
         builder
             .Property(user => user.Password)

@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Auth;
 
-public record Credentials(Guid UserId, string Role);
+public record Credentials(Guid UserId, List<string> Roles);
 
 public static class Role
 {

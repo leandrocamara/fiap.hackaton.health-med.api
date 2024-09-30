@@ -36,9 +36,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ConnectionStrings__Default": "Host=localhost;Database=healthmed_db;Username=postgres;Password=docker;",
-        "AuthSettings__SecretKey": "any-secret-key",
-        "AuthSettings__Issuer": "any-issuer",
-        "AuthSettings__Audience": "any-audience",
+        "AuthSettings__SecretKey": "YourSuperSecretKeyWith32CharsMin",
+        "AuthSettings__Issuer": "HealthMed.com",
+        "AuthSettings__Audience": "HealthMed.com",
         "AmazonSettings__AccessKey": "",
         "AmazonSettings__SecretKey": "",
         "AmazonSettings__SessionToken": ""

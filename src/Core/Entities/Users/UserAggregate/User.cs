@@ -1,6 +1,8 @@
 ﻿using Entities.SeedWork.Extensions;
 using Entities.SeedWork;
 using Entities.Users.UserAggregate.Validators;
+using Entities.Doctors.DoctorAggregate;
+using Entities.Patients.PatientAggregate;
 
 namespace Entities.Users.UserAggregate;
 
@@ -11,6 +13,12 @@ public class User : Entity, IAggregatedRoot
     public string Email { get; protected set; }
     public string Password { get; protected set; }
     public DateTime CreatedAt { get; protected set; }
+
+    // Relacionamento com Doctor
+    public Doctor? Doctor { get; protected set; }
+
+    // Relacionamento com Patient
+    public Patient? Patient { get; protected set; }
 
     public User(string name, string cpf, string email, string password)
     {
