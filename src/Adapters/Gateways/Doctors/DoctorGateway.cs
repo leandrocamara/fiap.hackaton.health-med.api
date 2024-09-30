@@ -23,7 +23,7 @@ public class DoctorGateway(
     public Task<IEnumerable<Doctor>> GetAll()
     {
         // TODO: Use Repository
-        return Task.FromResult(Enumerable.Empty<Doctor>());
+        return Task.FromResult(doctorRepository.GetAll());
     }
 
     public Doctor? GetById(Guid doctorId) => doctorRepository.GetById(doctorId);
