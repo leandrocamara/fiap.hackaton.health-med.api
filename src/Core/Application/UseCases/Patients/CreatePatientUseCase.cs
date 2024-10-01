@@ -1,6 +1,7 @@
 ﻿using Application.Gateways;
 using Application.UseCases.Patients.Validators;
 using Entities.Patients.PatientAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Application.UseCases.Patients;
 
@@ -10,18 +11,19 @@ public sealed class CreatePatientUseCase(
     IPatientGateway patientGateway) : ICreatePatientUseCase
 {
     private readonly CreatePatientValidator _validator = new(patientGateway);
-    
+
     public async Task<CreatePatientResponse> Execute(CreatePatientRequest request)
     {
         try
         {
             await _validator.Validate(request);
 
-            var patient = new Patient(request.Name, request.Cpf, request.Email, request.Password);
+            var user = new User(request.Name, request.Cpf, request.Email, request.Password);
+            var patient = new Patient(user);
 
-            await patientGateway.Save(patient);
+            patientGateway.Save(patient);
 
-            return new CreatePatientResponse(patient.Id, patient.Name, patient.Cpf, patient.Email, patient.CreatedAt);
+            return new CreatePatientResponse(patient.Id, user.Name, user.Cpf, user.Email, user.CreatedAt);
         }
         catch (Exception e)
         {

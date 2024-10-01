@@ -3,7 +3,7 @@ using Entities.Appointments.AppointmentAggregate;
 
 namespace Adapters.Gateways.Appointments;
 
-public class AppointmentGateway : IAppointmentGateway
+public class AppointmentGateway(IAppointmentRepository repository) : IAppointmentGateway
 {
     public Task<bool> TryLockDoctorAvailability(Appointment appointment)
     {
@@ -11,15 +11,7 @@ public class AppointmentGateway : IAppointmentGateway
         return Task.FromResult(true);
     }
 
-    public Task Save(Appointment appointment)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Save(Appointment appointment) => repository.Add(appointment);
 
-    public Task<IEnumerable<Appointment>> GetByDoctorId(Guid doctorId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult(Enumerable.Empty<Appointment>());
-    }
+    public IEnumerable<Appointment> GetByDoctorId(Guid doctorId) => repository.GetByDoctorId(doctorId);
 }

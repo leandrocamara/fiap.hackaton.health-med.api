@@ -12,9 +12,9 @@ public sealed class GetDoctorsUseCase(
     {
         try
         {
-            var doctors = await doctorGateway.GetAll();
+            var doctors = doctorGateway.GetAll();
 
-            return doctors.Select(doctor => new GetDoctorResponse(doctor.Id, doctor.Name, doctor.Crm));
+            return doctors.Select(doctor => new GetDoctorResponse(doctor.Id, doctor.User.Name, doctor.Crm));
         }
         catch (DomainException e)
         {

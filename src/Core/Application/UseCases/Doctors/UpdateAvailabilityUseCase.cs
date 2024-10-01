@@ -16,15 +16,15 @@ public sealed class UpdateAvailabilityUseCase(
         {
             await _validator.Validate(request);
 
-            var availability = await doctorGateway.GetAvailabilityById(request.AvailabilityId);
+            var doctor = doctorGateway.GetById(request.GetDoctorId());
 
-            if (availability is null)
-                throw new ApplicationException("Availability not found.");
+            if (doctor is null)
+                throw new ApplicationException("Doctor not found.");
 
-            availability.UpdateDateTime(request.AvailableDateTime);
-            await doctorGateway.UpdateAvailability(availability);
+            doctor.UpdateAvailability(request.AvailabilityId, request.AvailableDateTime);
+            doctorGateway.Update(doctor);
 
-            return new UpdateAvailabilityResponse(availability.DoctorId, availability.Id, availability.DateTime);
+            return new UpdateAvailabilityResponse(doctor.Id, request.AvailabilityId, request.AvailableDateTime);
         }
         catch (Exception e)
         {

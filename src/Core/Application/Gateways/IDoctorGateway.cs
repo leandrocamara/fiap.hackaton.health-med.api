@@ -1,15 +1,15 @@
 ﻿using Entities.Doctors.DoctorAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Application.Gateways;
 
 public interface IDoctorGateway
 {
-    Task Save(Doctor doctor);
-    Task<Doctor?> GetByCpfOrCrm(string cpf, string crm);
-    Task<Doctor?> GetByEmail(string email);
-    Task<IEnumerable<Doctor>> GetAll();
-    Task<Doctor?> GetById(Guid doctorId);
-    Task Update(Doctor doctor);
-    Task<Availability?> GetAvailabilityById(Guid availabilityId);
-    Task UpdateAvailability(Availability availability);
+    void Save(Doctor doctor);
+    Doctor? GetByCpfOrCrm(string cpf, string crm);
+    User? GetByEmail(string email);
+    IEnumerable<Doctor> GetAll();
+    Doctor? GetById(Guid doctorId);
+    void Update(Doctor doctor);
+    Availability? GetAvailabilityById(Guid availabilityId);
 }

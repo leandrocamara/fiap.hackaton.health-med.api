@@ -1,55 +1,26 @@
-﻿using Application.Gateways;
+﻿using Adapters.Gateways.Auth;
+using Application.Gateways;
 using Entities.Doctors.DoctorAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Adapters.Gateways.Doctors;
 
-public class DoctorGateway : IDoctorGateway
+public class DoctorGateway(
+    IDoctorRepository doctorRepository,
+    IUserRepository userRepository) : IDoctorGateway
 {
-    public Task Save(Doctor doctor)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Save(Doctor doctor) => doctorRepository.Add(doctor);
 
-    public Task<Doctor?> GetByCpfOrCrm(string cpf, string crm)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Doctor>(null!)!;
-    }
+    public Doctor? GetByCpfOrCrm(string cpf, string crm) => doctorRepository.GetByCpfOrCrm(cpf, crm);
 
-    public Task<Doctor?> GetByEmail(string email)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Doctor>(null!)!;
-    }
+    public User? GetByEmail(string email) => userRepository.GetByEmail(email);
 
-    public Task<IEnumerable<Doctor>> GetAll()
-    {
-        // TODO: Use Repository
-        return Task.FromResult(Enumerable.Empty<Doctor>());
-    }
+    public IEnumerable<Doctor> GetAll() => doctorRepository.GetAll();
 
-    public Task<Doctor?> GetById(Guid doctorId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Doctor>(null!)!;
-    }
+    public Doctor? GetById(Guid doctorId) => doctorRepository.GetById(doctorId);
 
-    public Task Update(Doctor doctor)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Update(Doctor doctor) => doctorRepository.Update(doctor);
 
-    public Task<Availability?> GetAvailabilityById(Guid availabilityId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Availability>(null!)!;
-    }
-
-    public Task UpdateAvailability(Availability availability)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public Availability? GetAvailabilityById(Guid availabilityId) =>
+        doctorRepository.GetAvailabilityById(availabilityId);
 }

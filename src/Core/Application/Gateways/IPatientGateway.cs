@@ -1,11 +1,12 @@
 ﻿using Entities.Patients.PatientAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Application.Gateways;
 
 public interface IPatientGateway
 {
-    Task Save(Patient patient);
-    Task<Patient?> GetByCpf(string cpf);
-    Task<Patient?> GetByEmail(string email);
-    Task<Patient?> GetById(Guid patientId);
+    void Save(Patient patient);
+    User? GetByCpf(string cpf);
+    User? GetByEmail(string email);
+    Patient? GetById(Guid patientId);
 }

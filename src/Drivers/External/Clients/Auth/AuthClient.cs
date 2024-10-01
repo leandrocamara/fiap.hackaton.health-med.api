@@ -9,16 +9,16 @@ namespace External.Clients.Auth;
 
 public class AuthClient(IOptions<AuthSettings> authSettings) : IAuthClient
 {
-    public Task<string> GenerateToken(string userId, string role)
+    public Task<string> GenerateToken(string userId, List<string> roles)
     {
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.Value.SecretKey));
         var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, userId),
-            new Claim(ClaimTypes.Role, role)
-        };
+        List<Claim> claims = new List<Claim>();
+        claims.Add(new Claim(ClaimTypes.NameIdentifier, userId));
+        foreach (var role in roles)
+            claims.Add(new Claim(ClaimTypes.Role, role));
+
 
         var token = new JwtSecurityToken(
             issuer: authSettings.Value.Issuer,

@@ -1,6 +1,7 @@
 ﻿using Application.Gateways;
 using Application.UseCases.Doctors.Validators;
 using Entities.Doctors.DoctorAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Application.UseCases.Doctors;
 
@@ -17,11 +18,12 @@ public sealed class CreateDoctorUseCase(
         {
             await _validator.Validate(request);
 
-            var doctor = new Doctor(request.Name, request.Cpf, request.Crm, request.Email, request.Password);
+            var user = new User(request.Name, request.Cpf, request.Email, request.Password);
+            var doctor = new Doctor(user, request.Crm);
 
-            await doctorGateway.Save(doctor);
+            doctorGateway.Save(doctor);
 
-            return new CreateDoctorResponse(doctor.Id, doctor.Name, doctor.Cpf, doctor.Crm, doctor.Email, doctor.CreatedAt);
+            return new CreateDoctorResponse(doctor.Id, user.Name, user.Cpf, doctor.Crm, user.Email, user.CreatedAt);
         }
         catch (Exception e)
         {

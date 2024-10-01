@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistence\Config\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <EmbeddedResource Include="Persistence\Migrations\Scripts\*.sql" />
     </ItemGroup>
 

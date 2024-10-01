@@ -12,11 +12,11 @@ public class GetScheduledAppointmentsUseCase(
     {
         try
         {
-            var appointments = await appointmentGateway.GetByDoctorId(doctorId);
+           var appointments = appointmentGateway.GetByDoctorId(doctorId);
 
             return new GetScheduledAppointmentsResponse(appointments.Select(appointment =>
                 new ScheduledAppointmentResponse(
-                    appointment.Patient.Name,
+                    appointment.Patient.User.Name,
                     appointment.Availability.DateTime)));
         }
         catch (DomainException e)

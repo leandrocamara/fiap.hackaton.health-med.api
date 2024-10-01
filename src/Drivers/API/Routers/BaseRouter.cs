@@ -1,4 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Security.Claims;
 using Adapters.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +22,7 @@ public abstract class BaseRouter : ControllerBase
 
     protected Guid GetAuthenticatedUserId()
     {
-        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         return userId is null ? Guid.Empty : Guid.Parse(userId);
     }
 }

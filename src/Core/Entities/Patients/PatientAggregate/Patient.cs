@@ -1,25 +1,19 @@
 ﻿using Entities.Patients.PatientAggregate.Validators;
 using Entities.SeedWork;
-using Entities.SeedWork.Extensions;
+using Entities.Users.UserAggregate;
 
 namespace Entities.Patients.PatientAggregate;
 
 public sealed class Patient : Entity, IAggregatedRoot
 {
-    public string Name { get; private set; }
-    public string Cpf { get; private set; }
-    public string Email { get; private set; }
-    public string Password { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    public User User { get; private set; }
+    public Guid UserId { get; private set; }
 
-    public Patient(string name, string cpf, string email, string password)
+    public Patient(User user)
     {
         Id = Guid.NewGuid();
-        Name = name;
-        Cpf = cpf;
-        Email = email;
-        Password = password.ToMd5();
-        CreatedAt = DateTime.UtcNow;
+        User = user;
+        UserId = user.Id;
 
         if (Validator.IsValid(this, out var error) is false)
             throw new DomainException(error);

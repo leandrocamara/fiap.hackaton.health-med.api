@@ -1,4 +1,5 @@
 ﻿using Adapters.Gateways.Appointments;
+using Adapters.Gateways.Auth;
 using Adapters.Gateways.Doctors;
 using Adapters.Gateways.Patients;
 using Amazon;
@@ -28,6 +29,7 @@ public static class ExternalExtensions
 
         services.AddScoped<IUnitOfWork, HealthMedContext>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IPatientRepository, PatientRepository>();
 
@@ -38,13 +40,13 @@ public static class ExternalExtensions
 
     private static void SetupAmazonSqs(IServiceCollection services, IConfiguration configuration)
     {
-        var settings = GetAmazonSettings(configuration);
+        //var settings = GetAmazonSettings(configuration);
 
-        services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient(
-            new SessionAWSCredentials(settings.AccessKey, settings.SecretKey, settings.SessionToken),
-            new AmazonSQSConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region) }));
+        //services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient(
+        //    new SessionAWSCredentials(settings.AccessKey, settings.SecretKey, settings.SessionToken),
+        //    new AmazonSQSConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region) }));
 
-        services.AddHostedService<AppointmentScheduledConsumer>();
+        //services.AddHostedService<AppointmentScheduledConsumer>();
     }
 
     public static IHealthChecksBuilder AddSqsHealthCheck(

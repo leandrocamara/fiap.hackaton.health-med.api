@@ -14,8 +14,8 @@ public sealed class CreateDoctorValidator(IDoctorGateway doctorGateway)
     }
 
     private async Task<bool> IsDoctorExists(string cpf, string crm) =>
-        await doctorGateway.GetByCpfOrCrm(cpf, crm) is not null;
+        doctorGateway.GetByCpfOrCrm(cpf, crm) is not null;
 
     private async Task<bool> IsEmailAlreadyUsed(string email) =>
-        await doctorGateway.GetByEmail(email) is not null;
+        doctorGateway.GetByEmail(email) is not null;
 }

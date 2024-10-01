@@ -1,30 +1,24 @@
 ﻿using Entities.Doctors.DoctorAggregate.Validators;
 using Entities.SeedWork;
-using Entities.SeedWork.Extensions;
+using Entities.Users.UserAggregate;
 
 namespace Entities.Doctors.DoctorAggregate;
 
 public sealed class Doctor : Entity, IAggregatedRoot
 {
-    public string Name { get; private set; }
-    public string Cpf { get; private set; }
+    public User User { get; private set; }
+    public Guid UserId { get; private set; }
     public string Crm { get; private set; }
-    public string Email { get; private set; }
-    public string Password { get; private set; }
-    public DateTime CreatedAt { get; private set; }
 
     public IReadOnlyCollection<Availability> Availabilities => _availabilities.AsReadOnly();
     private readonly IList<Availability> _availabilities;
 
-    public Doctor(string name, string cpf, string crm, string email, string password)
+    public Doctor(User user, string crm)
     {
         Id = Guid.NewGuid();
-        Name = name;
-        Cpf = cpf;
+        User = user;
+        UserId = user.Id;
         Crm = crm;
-        Email = email;
-        Password = password.ToMd5();
-        CreatedAt = DateTime.UtcNow;
 
         _availabilities = new List<Availability>();
 
@@ -35,6 +29,12 @@ public sealed class Doctor : Entity, IAggregatedRoot
     public void AddAvailability(Availability availability)
     {
         _availabilities.Add(availability);
+    }
+
+    public void UpdateAvailability(Guid availabilityId, DateTime dateTime)
+    {
+        var availability = _availabilities.FirstOrDefault(x => x.Id.Equals(availabilityId));
+        availability?.UpdateDateTime(dateTime);
     }
 
     private static readonly IValidator<Doctor> Validator = new DoctorValidator();

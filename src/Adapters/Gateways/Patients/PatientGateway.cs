@@ -1,31 +1,19 @@
-﻿using Application.Gateways;
+﻿using Adapters.Gateways.Auth;
+using Application.Gateways;
 using Entities.Patients.PatientAggregate;
+using Entities.Users.UserAggregate;
 
 namespace Adapters.Gateways.Patients;
 
-public class PatientGateway : IPatientGateway
+public class PatientGateway(
+    IPatientRepository patientRepository,
+    IUserRepository userRepository) : IPatientGateway
 {
-    public Task Save(Patient patient)
-    {
-        // TODO: Use Repository
-        return Task.CompletedTask;
-    }
+    public void Save(Patient patient) => patientRepository.Add(patient);
 
-    public Task<Patient?> GetByCpf(string cpf)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
-    }
+    public User? GetByCpf(string cpf) => userRepository.GetByCpf(cpf);
 
-    public Task<Patient?> GetByEmail(string email)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
-    }
+    public User? GetByEmail(string email) => userRepository.GetByEmail(email);
 
-    public Task<Patient?> GetById(Guid patientId)
-    {
-        // TODO: Use Repository
-        return Task.FromResult<Patient>(null!)!;
-    }
+    public Patient? GetById(Guid patientId) => patientRepository.GetById(patientId);
 }
