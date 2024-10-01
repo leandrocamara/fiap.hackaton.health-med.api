@@ -22,5 +22,11 @@ public class DoctorEntityTypeConfiguration : IEntityTypeConfiguration<Doctor>
             .WithOne(user => user.Doctor)
             .HasForeignKey<Doctor>(doctor => doctor.UserId)
             .IsRequired();
+
+        builder
+            .HasMany(doctor => doctor.Availabilities)
+            .WithOne(availability => availability.Doctor)
+            .HasForeignKey(availability => availability.DoctorId)
+            .HasPrincipalKey(doctor => doctor.Id);
     }
 }

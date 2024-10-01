@@ -1,13 +1,11 @@
-﻿using Adapters.Gateways.Doctors;
-using Adapters.Gateways.Patients;
-using Application.Gateways;
+﻿using Application.Gateways;
 using Application.UseCases.Auth;
 using Entities.SeedWork.Extensions;
 
 namespace Adapters.Gateways.Auth;
 
 public class AuthGateway(
-    IAuthClient authClient, 
+    IAuthClient authClient,
     IUserRepository userRepository) : IAuthGateway
 {
     public Task<Credentials> GetCredentials(string email, string password)
@@ -17,16 +15,15 @@ public class AuthGateway(
         List<string> roles = new();
 
         if (string.Equals(user?.Password, password.ToMd5(), StringComparison.OrdinalIgnoreCase))
-        {   
+        {
+            Credentials credentials = null!;
 
-            if(user?.Doctor != null)
-                roles.Add(Role.Doctor);
+            if (user?.Doctor != null)
+                credentials = new Credentials(user.Doctor.Id, [Role.Doctor]);
+            else if (user?.Patient != null)
+                credentials = new Credentials(user.Patient.Id, [Role.Patient]);
 
-            if (user?.Patient != null)
-                roles.Add(Role.Patient);
-            
-            var credentials = new Credentials(user.Id, roles);
-            return Task.FromResult<Credentials>(credentials);
+            return Task.FromResult(credentials!);
         }
 
         return Task.FromResult<Credentials>(null!);

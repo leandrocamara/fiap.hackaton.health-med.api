@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Entities.Appointments.AppointmentAggregate;
 using Entities.Doctors.DoctorAggregate;
 using Entities.Patients.PatientAggregate;
 using Entities.Users.UserAggregate;
@@ -22,6 +23,7 @@ public sealed class HealthMedContext(DbContextOptions<HealthMedContext> options)
     public DbSet<User> Users { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Patient> Patients { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,6 +32,8 @@ public sealed class HealthMedContext(DbContextOptions<HealthMedContext> options)
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new DoctorEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new AvailabilityEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new AppointmentEntityTypeConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 

@@ -15,7 +15,7 @@ public class AuthClient(IOptions<AuthSettings> authSettings) : IAuthClient
         var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
         List<Claim> claims = new List<Claim>();
-        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userId));
+        claims.Add(new Claim(ClaimTypes.NameIdentifier, userId));
         foreach (var role in roles)
             claims.Add(new Claim(ClaimTypes.Role, role));
 

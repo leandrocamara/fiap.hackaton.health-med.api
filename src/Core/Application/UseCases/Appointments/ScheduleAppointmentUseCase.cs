@@ -28,7 +28,7 @@ public sealed class ScheduleAppointmentUseCase(
             if (await appointmentGateway.TryLockDoctorAvailability(appointment) is false)
                 throw new ApplicationException("The doctor's availability is already lock.");
 
-            await appointmentGateway.Save(appointment);
+            appointmentGateway.Save(appointment);
 
             return new ScheduleAppointmentResponse(
                 appointment.Id,
@@ -53,7 +53,7 @@ public sealed class ScheduleAppointmentUseCase(
 
     private async Task<Availability> GetAvailability(Guid availabilityId)
     {
-        var availability = await doctorGateway.GetAvailabilityById(availabilityId);
+        var availability = doctorGateway.GetAvailabilityById(availabilityId);
 
         if (availability is null)
             throw new ApplicationException("Doctor availability not found.");

@@ -39,7 +39,7 @@ CREATE TABLE Appointments (
     FOREIGN KEY ("PatientId") REFERENCES "patients" ("Id")
 );
 
-
+/*
 -- Inserir dados na tabela Users
 INSERT INTO "users" ("Id", "Name", "Cpf", "Email", "Password") VALUES
 ('e8bde3e2-5e6d-4b6a-8e66-4d8903c2e37a', 'Alice Silva', '12345678900', 'alice.silva@example.com', MD5('senha123')),
@@ -78,3 +78,4 @@ INSERT INTO "availabilities" ("Id", "DoctorId", "DateTime") VALUES
 ('c6a6d2e5-81f8-4fd1-bbfd-91c6a7eb96c6', 'c9f1d2c1-8cb2-488b-bb68-2ff4a69d5e93', '2024-09-29 10:00:00'),
 ('b2c8e1b1-1423-4a1e-8e9a-8f6b37c3b2d8', 'a0e1b6c4-b7cf-41ff-8543-9852f59a4e3d', '2024-09-29 16:00:00'),
 ('d4a7f6e1-85e3-49eb-9483-f52d8f0a0a54', 'f8e2a5f0-4165-45e3-9bb2-6eec72f1c7c9', '2024-09-30 11:00:00');
+*/

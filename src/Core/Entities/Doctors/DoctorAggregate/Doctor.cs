@@ -31,6 +31,12 @@ public sealed class Doctor : Entity, IAggregatedRoot
         _availabilities.Add(availability);
     }
 
+    public void UpdateAvailability(Guid availabilityId, DateTime dateTime)
+    {
+        var availability = _availabilities.FirstOrDefault(x => x.Id.Equals(availabilityId));
+        availability?.UpdateDateTime(dateTime);
+    }
+
     private static readonly IValidator<Doctor> Validator = new DoctorValidator();
 
     // Required for EF
